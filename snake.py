@@ -35,12 +35,17 @@ window.geometry(f"{window_width}x{window_height}+{x}+{y}") # format "(w)x(h)+(x)
 
 # Initialize the Game
 snake = Cell(5*CELL_SIZE, 5*CELL_SIZE) # Starting position of the snake's head on the single cell grid
-
+food = Cell(10*CELL_SIZE, 10*CELL_SIZE) # Starting position of the food on the single cell grid
 
 def draw():
     global snake
     canvas.create_rectangle(snake.x, snake.y, snake.x + CELL_SIZE, snake.y + CELL_SIZE, fill="lime green")
+    canvas.create_rectangle(food.x, food.y, food.x + CELL_SIZE, food.y + CELL_SIZE, fill="red")
+    
     window.after(100, draw)  # Schedule the draw function to be called every 100 milliseconds
 
 draw()  # Start the drawing loop
+
+
+
 window.mainloop()
