@@ -30,5 +30,3 @@ window.geometry(f"{window_width}x{window_height}+{x}+{y}") # format "(w)x(h)+(x)
 
 
 window.mainloop()
-
-#12min
