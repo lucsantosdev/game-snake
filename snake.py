@@ -36,16 +36,67 @@ window.geometry(f"{window_width}x{window_height}+{x}+{y}") # format "(w)x(h)+(x)
 # Initialize the Game
 snake = Cell(5*CELL_SIZE, 5*CELL_SIZE) # Starting position of the snake's head on the single cell grid
 food = Cell(10*CELL_SIZE, 10*CELL_SIZE) # Starting position of the food on the single cell grid
+snake_body = [] # List to hold the snake's body segments
+velocityX = 0
+velocityY = 0
+game_over = False
+
+def change_direction(e):
+    global velocityX, velocityY, game_over
+    if e.keysym == "Up" and velocityY != 1:  # Prevent the snake from reversing
+        velocityX = 0
+        velocityY = -1
+    elif e.keysym == "Down" and velocityY != -1:  # Prevent the snake from reversing
+        velocityX = 0
+        velocityY = 1
+    elif e.keysym == "Left" and velocityX != 1:  # Prevent the snake from reversing
+        velocityX = -1
+        velocityY = 0
+    elif e.keysym == "Right" and velocityX != -1:  # Prevent the snake from reversing
+        velocityX = 1
+        velocityY = 0
+
+def move():
+    global snake
+    
+    # When occours the collision with food
+    if snake.x == food.x and snake.y == food.y:
+        snake_body.append(Cell(snake.x, snake.y))  # Add a new segment to the snake's body
+        # Move the food to a new random position
+        food.x = random.randint(0, COLS - 1) * CELL_SIZE
+        food.y = random.randint(0, ROWS - 1) * CELL_SIZE
+        
+    # updating the snake's body segments
+    for i in range(len(snake_body) - 1, -1, -1):
+        cell = snake_body[i]
+        if i == 0:
+            cell.x = snake.x
+            cell.y = snake.y
+        else:
+            prev_cell = snake_body[i - 1]
+            cell.x = prev_cell.x
+            cell.y = prev_cell.y
+        
+    snake.x += velocityX * CELL_SIZE
+    snake.y += velocityY * CELL_SIZE
 
 def draw():
     global snake
-    canvas.create_rectangle(snake.x, snake.y, snake.x + CELL_SIZE, snake.y + CELL_SIZE, fill="lime green")
-    canvas.create_rectangle(food.x, food.y, food.x + CELL_SIZE, food.y + CELL_SIZE, fill="red")
+    move()
     
-    window.after(100, draw)  # Schedule the draw function to be called every 100 milliseconds
+    canvas.delete("all")
+    
+    # draw the food and the snake (in that order to ensure the snake is drawn on top of the food)
+    canvas.create_rectangle(food.x, food.y, food.x + CELL_SIZE, food.y + CELL_SIZE, fill="red")
+    canvas.create_rectangle(snake.x, snake.y, snake.x + CELL_SIZE, snake.y + CELL_SIZE, fill="lime green")
+    
+    for cell in snake_body:
+        canvas.create_rectangle(cell.x, cell.y, cell.x + CELL_SIZE, cell.y + CELL_SIZE, fill="lime green")
+    
+    window.after(100, draw)  # Schedule the draw function to be called every 100 milliseconds/10 frames per second
 
 draw()  # Start the drawing loop
 
 
-
+window.bind("<KeyRelease>", change_direction)
 window.mainloop()
