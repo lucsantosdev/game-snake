@@ -41,6 +41,7 @@ velocityX = 0
 velocityY = 0
 game_over = False
 score = 0
+restart_button = None
 
 def change_direction(e):
     global velocityX, velocityY, game_over
@@ -97,6 +98,21 @@ def move():
     snake.x += velocityX * CELL_SIZE
     snake.y += velocityY * CELL_SIZE
 
+def restart_game():
+    global snake, food, snake_body, velocityX, velocityY, game_over, score
+
+    snake.x = 5 * CELL_SIZE
+    snake.y = 5 * CELL_SIZE
+    food.x = random.randint(0, COLS - 1) * CELL_SIZE
+    food.y = random.randint(0, ROWS - 1) * CELL_SIZE
+    snake_body.clear()
+    velocityX = 0
+    velocityY = 0
+    game_over = False
+    score = 0
+
+    restart_button.place_forget()
+
 def draw():
     global snake, food, snake_body, game_over, score
     move()
@@ -113,8 +129,13 @@ def draw():
     if game_over:
         canvas.create_text(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2, text="Game Over", fill="white", font=("Arial", 24))
         canvas.create_text(WINDOW_WIDTH // 2, (WINDOW_HEIGHT // 2) + 30, text=f"Score: {score}", fill="white", font=("Arial", 18))
+        restart_button.place(x=WINDOW_WIDTH // 2, y=(WINDOW_HEIGHT // 2) + 70, anchor="center")
+    else:
+        restart_button.place_forget()
     
     window.after(100, draw)  # Schedule the draw function to be called every 100 milliseconds/10 frames per second
+
+restart_button = tkinter.Button(window, text="Restart", command=restart_game, font=("Arial", 12), padx=10, pady=4)
 
 draw()  # Start the drawing loop
 
