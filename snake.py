@@ -43,6 +43,10 @@ game_over = False
 
 def change_direction(e):
     global velocityX, velocityY, game_over
+    
+    if game_over:
+        return  # Ignore input if the game is over
+    
     if e.keysym == "Up" and velocityY != 1:  # Prevent the snake from reversing
         velocityX = 0
         velocityY = -1
@@ -57,7 +61,18 @@ def change_direction(e):
         velocityY = 0
 
 def move():
-    global snake
+    global snake, food, snake_body, game_over
+    if game_over:
+        return  # Stop moving if the game is over
+    
+    if snake.x < 0 or snake.x >= WINDOW_WIDTH or snake.y < 0 or snake.y >= WINDOW_HEIGHT:
+        game_over = True  # Set game over if the snake hits the wall
+        return
+    
+    for cell in snake_body:
+        if snake.x == cell.x and snake.y == cell.y:
+            game_over = True  # Set game over if the snake collides with itself
+            return
     
     # When occours the collision with food
     if snake.x == food.x and snake.y == food.y:
