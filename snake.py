@@ -40,6 +40,7 @@ snake_body = [] # List to hold the snake's body segments
 velocityX = 0
 velocityY = 0
 game_over = False
+score = 0
 
 def change_direction(e):
     global velocityX, velocityY, game_over
@@ -61,7 +62,7 @@ def change_direction(e):
         velocityY = 0
 
 def move():
-    global snake, food, snake_body, game_over
+    global snake, food, snake_body, game_over, score
     if game_over:
         return  # Stop moving if the game is over
     
@@ -80,6 +81,7 @@ def move():
         # Move the food to a new random position
         food.x = random.randint(0, COLS - 1) * CELL_SIZE
         food.y = random.randint(0, ROWS - 1) * CELL_SIZE
+        score += 1
         
     # updating the snake's body segments
     for i in range(len(snake_body) - 1, -1, -1):
@@ -96,7 +98,7 @@ def move():
     snake.y += velocityY * CELL_SIZE
 
 def draw():
-    global snake
+    global snake, food, snake_body, game_over, score
     move()
     
     canvas.delete("all")
@@ -107,6 +109,10 @@ def draw():
     
     for cell in snake_body:
         canvas.create_rectangle(cell.x, cell.y, cell.x + CELL_SIZE, cell.y + CELL_SIZE, fill="lime green")
+        
+    if game_over:
+        canvas.create_text(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2, text="Game Over", fill="white", font=("Arial", 24))
+        canvas.create_text(WINDOW_WIDTH // 2, (WINDOW_HEIGHT // 2) + 30, text=f"Score: {score}", fill="white", font=("Arial", 18))
     
     window.after(100, draw)  # Schedule the draw function to be called every 100 milliseconds/10 frames per second
 
