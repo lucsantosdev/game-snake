@@ -4,7 +4,7 @@ A classic Snake game built in pure Python using Tkinter, focused on clean logic 
 
 ## 🎮 Project Overview
 
-This project implements the core Snake experience on a 25x25 grid:
+This project is a desktop app who implements the core Snake experience on a 25x25 grid:
 
 - ⚡ Real-time movement with arrow key controls
 - 🍎 Food spawning and snake growth
@@ -56,26 +56,19 @@ The game is intentionally simple and structured around:
 
 This makes the project beginner-friendly and easy to extend.
 
-## 🛠️ Possible Next Steps
-
-Here are practical improvements you can add next:
-
-1. Add a start screen and pause/resume support.
-2. Prevent food from spawning inside the snake body.
-3. Add increasing speed as score grows (difficulty scaling).
-4. Display current score during gameplay (not only at game over).
-5. Add a high-score system persisted in a local file.
-6. Add sound effects for eat, game over, and restart.
-7. Refactor state into classes (for better maintainability and testing).
-8. Add unit tests for movement and collision logic.
-9. Support WASD keys as alternative controls.
-10. Package the game as a standalone executable.
-
 ## 🌟 Why This Project Is Valuable
 
 - 📌 Demonstrates event-driven programming in Python
 - 🔍 Shows practical game-loop and state-management patterns
 - 🧱 Serves as a solid base for learning GUI development and gameplay architecture
+
+## 🌐 Connect with Me
+Follow my journey and other projects on:
+- **LinkedIn:** [lucsantosdev](https://www.linkedin.com/in/lucsantosdev)
+- **GitHub:** [lucsantosdev](https://github.com/lucsantosdev)
+- **Email:** [lucsantosdev@gmail.com](mailto:lucsantosdev@gmail.com)
+- **Support me:** [Ko-Fi](https://ko-fi.com/lucsantosdev)
+
 
 ---
 
