@@ -139,6 +139,5 @@ restart_button = tkinter.Button(window, text="Restart", command=restart_game, fo
 
 draw()  # Start the drawing loop
 
-
 window.bind("<KeyRelease>", change_direction)
 window.mainloop()
