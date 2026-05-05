@@ -1,6 +1,7 @@
 # 🐍 Snake Game (Python + Tkinter)
+>A classic Snake Game built in pure Python using Tkinter, focused on clean logic and responsive gameplay.
 
-A classic Snake game built in pure Python using Tkinter, focused on clean logic and responsive gameplay.
+![Project Presentation](preview.png)
 
 ## 🎮 Project Overview
 
